@@ -41,7 +41,13 @@ func init() {
 }
 
 func lineCount(cmd *cobra.Command, args []string) error {
-	//TODO check non-exist-file, got directory, binary file
+	valid, err := isValidFile(file, false)
+	if err != nil {
+		return err
+	} else if !valid {
+		return nil
+	}
+
 	fileContent, err := os.Open(file)
 	if err != nil {
 		return err
