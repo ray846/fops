@@ -29,28 +29,34 @@ import (
 var linecountCmd = &cobra.Command{
 	Use:     "linecount",
 	Short:   "Print the line count of file",
-	RunE:    lineCount,
 	Example: "  linecount -f [file]",
+	RunE: func(cmd *cobra.Command, args []string) error {
+		valid, err := isValidFile(inputFile, false)
+		if err != nil {
+			return err
+		} else if !valid {
+			return nil
+		}
+		count, err := lineCount(inputFile)
+		if err != nil {
+			return err
+		}
+		fmt.Print(count)
+		return nil
+	},
 }
-var file string
+var inputFile string
 
 func init() {
 	rootCmd.AddCommand(linecountCmd)
-	linecountCmd.Flags().StringVarP(&file, "file", "f", "", " input file")
+	linecountCmd.Flags().StringVarP(&inputFile, "file", "f", "", " input file")
 	linecountCmd.MarkFlagRequired("file")
 }
 
-func lineCount(cmd *cobra.Command, args []string) error {
-	valid, err := isValidFile(file, false)
-	if err != nil {
-		return err
-	} else if !valid {
-		return nil
-	}
-
+func lineCount(file string) (int, error) {
 	fileContent, err := os.Open(file)
 	if err != nil {
-		return err
+		return 0, err
 	}
 
 	const lineBreak = '\n'
@@ -59,7 +65,7 @@ func lineCount(cmd *cobra.Command, args []string) error {
 	for {
 		bufferSize, err := fileContent.Read(buf)
 		if err != nil && err != io.EOF {
-			return err
+			return 0, err
 		}
 
 		var buffPosition int
@@ -75,6 +81,5 @@ func lineCount(cmd *cobra.Command, args []string) error {
 			break
 		}
 	}
-	fmt.Print(count)
-	return nil
+	return count, nil
 }
