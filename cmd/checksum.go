@@ -41,7 +41,7 @@ var checksumCmd = &cobra.Command{
 	Use:     "checksum",
 	Short:   "Print the checksum of file",
 	Long:    `Print the checksum of file, support multiple algorithms: md5, sha1 and sha256`,
-	Example: "  checksum -f [file]",
+	Example: "  checksum -f [file] --[algorithm]",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		algo, err := checkAlgorithm(cmd)
 		if err != nil {
