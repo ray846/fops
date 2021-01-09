@@ -45,11 +45,10 @@ var linecountCmd = &cobra.Command{
 		return nil
 	},
 }
-var inputFile string
 
 func init() {
 	rootCmd.AddCommand(linecountCmd)
-	linecountCmd.Flags().StringVarP(&inputFile, "file", "f", "", " input file")
+	linecountCmd.Flags().StringVarP(&inputFile, "file", "f", "", "input file")
 	linecountCmd.MarkFlagRequired("file")
 }
 

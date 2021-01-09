@@ -7,6 +7,8 @@ import (
 	"github.com/gabriel-vasile/mimetype"
 )
 
+var inputFile string
+
 //isExist checks if a file exisits.
 func isExist(file string) (bool, error) {
 	_, err := os.Stat(file)
