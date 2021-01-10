@@ -13,14 +13,21 @@ jobs:
       - checkout
       - run: go get github.com/ray846/fops
       - run: make build
+      - persist_to_workspace:
+          # Must be an absolute path, or relative path from working_directory. This is a directory on the container which is 
+          # taken to be the root directory of the workspace.
+          root: /go/src/github.com/ray846/fops
+          # Must be relative path from root
+          paths:
+            - fops
   test:
     executor: go_executor
     steps:
 
-      - run: make tests
+      - run: go test ./...
 
 workflows:
-  version: 2.1
+  version: 2
   build_and_test:
     jobs:
       - build
