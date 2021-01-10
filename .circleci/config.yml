@@ -1,20 +1,20 @@
 version: 2.1
 executors:
-  goExecutor:
+  go_executor:
     docker:
       - image: circleci/golang:1.9
     working_directory: /go/src/github.com/ray846/fops
 
 jobs:
   build:
-    executor: goExecutor
+    executor: go_executor
     steps:
     
       - checkout
       - run: go get github.com/ray846/fops
       - run: make build
   test:
-    executor: goExecutor
+    executor: go_executor
     steps:
 
       - run: go test ./...
