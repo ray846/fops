@@ -14,7 +14,12 @@ jobs:
       - run: go get github.com/ray846/fops
       - run: make build
       - run: go test ./...
-
+      - run: mkdir release
+      - run: mv fops ./release/fops
+      - run: go get github.com/tcnksm/ghr
+      - run: VERSION=v0.0.1
+      - run: GITHUB_TOKEN=eaac9e33035aeb3aa3faf391b157cb99c71eefd4
+      - run: ghr -t ${GITHUB_TOKEN} -delete ${VERSION} ./release
 workflows:
   version: 2
   build:
