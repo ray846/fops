@@ -17,7 +17,7 @@ jobs:
       - run: mkdir release
       - run: mv fops ./release/fops
       - run: go get github.com/tcnksm/ghr
-      - run: ghr -t 1c3a6b137d25ab5d08c20793eb171c17ae5a5127 -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -delete v0.0.1 ./release
+      - run: ghr -t 94e2806a927469116c2dbd33ebc789c9b242f1e7 -delete v0.0.1 ./release
 workflows:
   version: 2
   build:
