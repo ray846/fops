@@ -59,7 +59,7 @@ func lineCount(file string) (int, error) {
 	}
 
 	const lineBreak = '\n'
-	count := 1 //first line
+	count := 0 // don't count first line?
 	buf := make([]byte, bufio.MaxScanTokenSize)
 	for {
 		bufferSize, err := fileContent.Read(buf)
