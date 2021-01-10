@@ -41,7 +41,7 @@ f07bb6a888308db77fda750aa3739b7c643b07675c5c6a2d6de6c9e69de05ceb
 ```
 Show version and help
 ```bash
-$ fops versio
+$ fops version
 fops v0.0.1
 $ fops help
 File Ops
