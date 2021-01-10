@@ -3,25 +3,25 @@
 # Check https://circleci.com/docs/2.0/language-go/ for more details
 version: 2
 executors:
-  executor:
+  goExecutor:
     docker:
       - image: circleci/golang:1.9
     working_directory: /go/src/github.com/ray846/fops
 
 jobs:
   build:
-    executor: executor
+    executor: goExecutor
     steps:
     
       - checkout
       - run: go get github.com/ray846/fops
       - run: make build
   test:
-    executor: executor
+    executor: goExecutor
     steps:
 
       - run: go test ./...
-      
+
 workflows:
   version: 2
   build_and_test:
