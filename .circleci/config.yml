@@ -12,3 +12,10 @@ jobs:
       - checkout
       - run: go get github.com/ray846/fops
       - run: make build
+  test:
+    docker:
+      - image: circleci/golang:1.9
+    working_directory: /go/src/github.com/ray846/fops
+    steps:
+    
+      - run: go test ./...
