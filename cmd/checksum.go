@@ -24,6 +24,7 @@ import (
 	"hash"
 	"io/ioutil"
 
+	"github.com/ray846/fops/fileinfo"
 	"github.com/spf13/cobra"
 )
 
@@ -48,7 +49,7 @@ var checksumCmd = &cobra.Command{
 			return err
 		}
 
-		valid, err := isValidFile(inputFile, true)
+		valid, err := fileinfo.IsValidFile(inputFile, true)
 		if err != nil {
 			return err
 		} else if !valid {

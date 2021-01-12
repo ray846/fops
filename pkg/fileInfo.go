@@ -1,4 +1,4 @@
-package cmd
+package fileinfo
 
 import (
 	"fmt"
@@ -6,8 +6,6 @@ import (
 
 	"github.com/gabriel-vasile/mimetype"
 )
-
-var inputFile string
 
 //isExist checks if a file exisits.
 func isExist(file string) (bool, error) {
@@ -42,8 +40,8 @@ func isBinaryFile(file string) (bool, error) {
 	return true, nil
 }
 
-//isValidFile checks non-exist-file, got directory, binary file
-func isValidFile(file string, acceptBinary bool) (bool, error) {
+//IsValidFile checks non-exist-file, got directory, binary file
+func IsValidFile(file string, acceptBinary bool) (bool, error) {
 	exist, err := isExist(file)
 	if err != nil {
 		return false, err

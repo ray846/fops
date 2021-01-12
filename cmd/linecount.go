@@ -22,6 +22,7 @@ import (
 	"io"
 	"os"
 
+	"github.com/ray846/fops/fileinfo"
 	"github.com/spf13/cobra"
 )
 
@@ -31,7 +32,7 @@ var linecountCmd = &cobra.Command{
 	Short:   "Print the line count of file",
 	Example: "  linecount -f [file]",
 	RunE: func(cmd *cobra.Command, args []string) error {
-		valid, err := isValidFile(inputFile, false)
+		valid, err := fileinfo.IsValidFile(inputFile, false)
 		if err != nil {
 			return err
 		} else if !valid {
