@@ -46,24 +46,22 @@ func IsValidFile(file string, acceptBinary bool) (bool, error) {
 	if err != nil {
 		return false, err
 	} else if !exist {
-		fmt.Printf("error: No such file '%s'", file)
-		return false, nil
+		return false, fmt.Errorf("No such file '%s'", file)
 	}
 
 	isDir, err := isDirectory(file)
 	if err != nil {
 		return false, err
 	} else if isDir {
-		fmt.Printf("error: Expected file got directory '%s'", file)
-		return false, nil
+		return false, fmt.Errorf("Expected file got directory '%s'", file)
 	}
+
 	if !acceptBinary {
 		isBinary, err := isBinaryFile(file)
 		if err != nil {
 			return false, err
 		} else if isBinary {
-			fmt.Printf("error: Cannot do linecount for binary file '%s'", file)
-			return false, nil
+			return false, fmt.Errorf("Cannot do linecount for binary file '%s'", file)
 		}
 	}
 	return err == nil, err

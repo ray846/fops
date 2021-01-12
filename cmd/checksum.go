@@ -53,7 +53,7 @@ var checksumCmd = &cobra.Command{
 		if err != nil {
 			return err
 		} else if !valid {
-			return nil
+			return err
 		}
 
 		sum, err := checksum(inputFile, algo)

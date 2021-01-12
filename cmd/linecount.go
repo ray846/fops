@@ -36,7 +36,7 @@ var linecountCmd = &cobra.Command{
 		if err != nil {
 			return err
 		} else if !valid {
-			return nil
+			return err
 		}
 		count, err := lineCount(inputFile)
 		if err != nil {
