@@ -60,7 +60,7 @@ func lineCount(file string) (int, error) {
 	}
 
 	const lineBreak = '\n'
-	count := 0 // don't count first line?
+	count := 1 // first line
 	buf := make([]byte, bufio.MaxScanTokenSize)
 	for {
 		bufferSize, err := fileContent.Read(buf)
@@ -72,6 +72,9 @@ func lineCount(file string) (int, error) {
 		for {
 			i := bytes.IndexByte(buf[buffPosition:], lineBreak)
 			if i == -1 || bufferSize == buffPosition {
+				if i == -1 && bufferSize == buffPosition {
+					count--
+				}
 				break
 			}
 			buffPosition += i + 1

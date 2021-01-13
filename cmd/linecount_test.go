@@ -3,9 +3,23 @@ package cmd
 import "testing"
 
 func TestLineCount(t *testing.T) {
-	file := "../test/myfile.txt"
-	ans, _ := lineCount(file)
-	if ans != 4 {
-		t.Errorf("lineCount(\"%s\") = %d; want 4", file, ans)
+	var tests = []struct {
+		file string
+		want int
+	}{
+		{"../test/myfile.txt", 4},
+		{"../test/test.js", 5},
+		{"../test/test.json", 4},
+		{"../test/test.csv", 4},
+		{"../test/test.html", 11},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.file, func(t *testing.T) {
+			ans, _ := lineCount(tt.file)
+			if ans != tt.want {
+				t.Errorf("lineCount(\"%s\") = %d; want %d", tt.file, ans, tt.want)
+			}
+		})
 	}
 }
