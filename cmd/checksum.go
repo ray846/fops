@@ -49,10 +49,8 @@ var checksumCmd = &cobra.Command{
 			return err
 		}
 
-		valid, err := fileinfo.IsValidFile(inputFile, true)
+		_, err = fileinfo.IsValidFile(inputFile, true)
 		if err != nil {
-			return err
-		} else if !valid {
 			return err
 		}
 
