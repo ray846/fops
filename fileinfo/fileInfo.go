@@ -45,14 +45,16 @@ func IsValidFile(file string, acceptBinary bool) (bool, error) {
 	exist, err := isExist(file)
 	if err != nil {
 		return false, err
-	} else if !exist {
+	}
+	if !exist {
 		return false, fmt.Errorf("No such file '%s'", file)
 	}
 
 	isDir, err := isDirectory(file)
 	if err != nil {
 		return false, err
-	} else if isDir {
+	}
+	if isDir {
 		return false, fmt.Errorf("Expected file got directory '%s'", file)
 	}
 
@@ -60,7 +62,8 @@ func IsValidFile(file string, acceptBinary bool) (bool, error) {
 		isBinary, err := isBinaryFile(file)
 		if err != nil {
 			return false, err
-		} else if isBinary {
+		}
+		if isBinary {
 			return false, fmt.Errorf("Cannot do linecount for binary file '%s'", file)
 		}
 	}
