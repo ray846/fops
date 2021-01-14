@@ -49,11 +49,9 @@ var checksumCmd = &cobra.Command{
 			return err
 		}
 
-		valid, err := fileinfo.IsValidFile(inputFile, true)
+		_, err = fileinfo.IsValidFile(inputFile, true)
 		if err != nil {
 			return err
-		} else if !valid {
-			return nil
 		}
 
 		sum, err := checksum(inputFile, algo)
@@ -82,8 +80,9 @@ func checkAlgorithm(cmd *cobra.Command) (hash.Hash, error) {
 	for _, i := range algorithms {
 		choose, err := cmd.Flags().GetBool(i.name)
 		if err != nil {
-			return nil, nil
-		} else if choose {
+			return nil, err
+		}
+		if choose {
 			count++
 			theChosenOne = i.hash
 		}

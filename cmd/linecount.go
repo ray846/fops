@@ -32,11 +32,9 @@ var linecountCmd = &cobra.Command{
 	Short:   "Print the line count of file",
 	Example: "  linecount -f [file]",
 	RunE: func(cmd *cobra.Command, args []string) error {
-		valid, err := fileinfo.IsValidFile(inputFile, false)
+		_, err := fileinfo.IsValidFile(inputFile, false)
 		if err != nil {
 			return err
-		} else if !valid {
-			return nil
 		}
 		count, err := lineCount(inputFile)
 		if err != nil {
