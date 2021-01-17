@@ -16,7 +16,7 @@ jobs:
       - run: mkdir release
       - run: mv fops ./release/fops
       - persist_to_workspace:
-          root: .
+          root: /tmp
           paths:
             - release
   publish-github-release:
@@ -24,12 +24,12 @@ jobs:
       - image: cibuilds/github:0.10
     steps:
       - attach_workspace:
-          at: ./release
+          at: /tmp/release
       - run:
           name: "Publish Release on GitHub"
           command: |
             VERSION=$(fops --version)
-            ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${VERSION} ./artifacts/
+            ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${VERSION} ./release/
 
 workflows:
   version: 2
