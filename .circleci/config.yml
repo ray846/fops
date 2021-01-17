@@ -16,7 +16,7 @@ jobs:
       - run: mkdir release
       - run: mv fops ./release/fops
       - persist_to_workspace:
-          root: /tmp
+          root: .
           paths:
             - release
   publish-github-release:
@@ -24,7 +24,8 @@ jobs:
       - image: cibuilds/github:0.10
     steps:
       - attach_workspace:
-          at: /tmp/release
+          at: ./release
+      - run: ll
       - run:
           name: "Publish Release on GitHub"
           command: |
