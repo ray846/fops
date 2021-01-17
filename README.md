@@ -1,7 +1,22 @@
 # fops
-A command-line application to print line count and checksum of file.
+A command-line application to print line count and checksum of file. Build with [cobra](github.com/spf13/cobra) and integrate with CircleCI.
 
-## Features
+# 3rd-party libraries
+- [cobra](http://github.com/spf13/cobra) v1.1.1
+- [mimetype](http://github.com/gabriel-vasile/mimetype) v1.1.2
+- [ghr](http://github.com/tcnksm/ghr) v0.13.0
+
+# Build
+```
+$ make bild
+```
+
+# Run
+```
+$ go run main.go
+```
+
+# Features
 
 Prepare input file
 ```bash
@@ -65,3 +80,7 @@ fops linecount [flags]
 Flags:
 -f, --file the input file
 ```
+
+# TODO
+
+- [ ] Publish github release with CircleCI

@@ -1,4 +1,4 @@
-package cmd
+package fileinfo
 
 import (
 	"fmt"
@@ -6,8 +6,6 @@ import (
 
 	"github.com/gabriel-vasile/mimetype"
 )
-
-var inputFile string
 
 //isExist checks if a file exisits.
 func isExist(file string) (bool, error) {
@@ -42,30 +40,31 @@ func isBinaryFile(file string) (bool, error) {
 	return true, nil
 }
 
-//isValidFile checks non-exist-file, got directory, binary file
-func isValidFile(file string, acceptBinary bool) (bool, error) {
+//IsValidFile checks non-exist-file, got directory, binary file
+func IsValidFile(file string, acceptBinary bool) (bool, error) {
 	exist, err := isExist(file)
 	if err != nil {
 		return false, err
-	} else if !exist {
-		fmt.Printf("error: No such file '%s'", file)
-		return false, nil
+	}
+	if !exist {
+		return false, fmt.Errorf("No such file '%s'", file)
 	}
 
 	isDir, err := isDirectory(file)
 	if err != nil {
 		return false, err
-	} else if isDir {
-		fmt.Printf("error: Expected file got directory '%s'", file)
-		return false, nil
 	}
+	if isDir {
+		return false, fmt.Errorf("Expected file got directory '%s'", file)
+	}
+
 	if !acceptBinary {
 		isBinary, err := isBinaryFile(file)
 		if err != nil {
 			return false, err
-		} else if isBinary {
-			fmt.Printf("error: Cannot do linecount for binary file '%s'", file)
-			return false, nil
+		}
+		if isBinary {
+			return false, fmt.Errorf("Cannot do linecount for binary file '%s'", file)
 		}
 	}
 	return err == nil, err

@@ -22,6 +22,7 @@ import (
 	"io"
 	"os"
 
+	"github.com/ray846/fops/fileinfo"
 	"github.com/spf13/cobra"
 )
 
@@ -31,11 +32,9 @@ var linecountCmd = &cobra.Command{
 	Short:   "Print the line count of file",
 	Example: "  linecount -f [file]",
 	RunE: func(cmd *cobra.Command, args []string) error {
-		valid, err := isValidFile(inputFile, false)
+		_, err := fileinfo.IsValidFile(inputFile, false)
 		if err != nil {
 			return err
-		} else if !valid {
-			return nil
 		}
 		count, err := lineCount(inputFile)
 		if err != nil {
@@ -59,7 +58,7 @@ func lineCount(file string) (int, error) {
 	}
 
 	const lineBreak = '\n'
-	count := 0 // don't count first line?
+	count := 1 // first line
 	buf := make([]byte, bufio.MaxScanTokenSize)
 	for {
 		bufferSize, err := fileContent.Read(buf)
@@ -71,6 +70,9 @@ func lineCount(file string) (int, error) {
 		for {
 			i := bytes.IndexByte(buf[buffPosition:], lineBreak)
 			if i == -1 || bufferSize == buffPosition {
+				if i == -1 && bufferSize == buffPosition {
+					count--
+				}
 				break
 			}
 			buffPosition += i + 1
