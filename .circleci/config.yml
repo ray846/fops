@@ -25,7 +25,7 @@ jobs:
     steps:
       - attach_workspace:
           at: ./release
-      - run: ll
+      - run: ./release/fops
       - run:
           name: "Publish Release on GitHub"
           command: |
