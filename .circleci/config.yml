@@ -25,10 +25,11 @@ jobs:
     steps:
       - attach_workspace:
           at: .
+      - run: ./release/fops --version
       - run:
           name: "Publish Release on GitHub"
           command: |
-            VERSION=$(fops --version)
+            VERSION=$(./fops --version)
             ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${VERSION} ./release/
 
 workflows:
