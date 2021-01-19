@@ -3,6 +3,7 @@ executors:
   go_executor:
     docker:
       - image: circleci/golang:1.9
+      - image: cibuilds/github:0.10
     working_directory: /go/src/github.com/ray846/fops
 
 jobs:
@@ -13,19 +14,15 @@ jobs:
       - run: go get github.com/ray846/fops
       - run: make build
       - run: go test ./...
-      - run: mkdir release
-      - run: cp fops ./release/fops
-      - persist_to_workspace:
-          root: .
-          paths:
-            - release
   publish-github-release:
-    docker:
-      - image: cibuilds/github:0.10
+    executor: go_executor
     steps:
       - attach_workspace:
           at: .
-      - run: ./fops
+      - run: go get github.com/ray846/fops
+      - run: make build
+      - run: mkdir release
+      - run: mv ./fops ./release/fops
       - run:
           name: "Publish Release on GitHub"
           command: |
