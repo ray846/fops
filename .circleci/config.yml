@@ -17,8 +17,7 @@ jobs:
   publish-github-release:
     executor: go_executor
     steps:
-      - attach_workspace:
-          at: .
+      - checkout
       - run: go get github.com/ray846/fops
       - run: make build
       - run: mkdir release
