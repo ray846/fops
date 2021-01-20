@@ -13,7 +13,8 @@ jobs:
       - checkout
       - run: go get github.com/ray846/fops
       - run: make build
-      - run: go test ./...
+      - run: VERSION=$(fops version | awk "{print $2}")
+      - run: echo ${VERSION}
   publish-github-release:
     executor: go_executor
     steps:
@@ -37,11 +38,3 @@ workflows:
           filters:
             tags:
               only: /.*/
-      - publish-github-release:
-          requires:
-            - build
-          filters:
-            tags:
-              only: /^v.*/
-            branches:
-              ignore: /.*/
