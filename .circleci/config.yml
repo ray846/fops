@@ -13,8 +13,8 @@ jobs:
       - checkout
       - run: go get github.com/ray846/fops
       - run: make build
-      - run: fops version | awk "{print $1}"
-      - run: VERSION=$(fops version | awk "{print $1}")
+      - run: fops version | awk '{print $0}'
+      - run: VERSION=$(fops version | awk '{print $1}')
       - run: echo 'test'
       - run: echo ${VERSION}
   publish-github-release:
