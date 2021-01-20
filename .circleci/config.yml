@@ -23,11 +23,7 @@ jobs:
       - run: mkdir release
       - run: mv ./fops ./release/fops
       - run: go get github.com/tcnksm/ghr
-      - run:
-          name: "Publish Release on GitHub"
-          command: |
-            VERSION=$(./release/fops version)
-            ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${VERSION} ./release/
+      - run: ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${CIRCLE_TAG} ./release/
 
 workflows:
   version: 2
