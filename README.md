@@ -80,7 +80,3 @@ fops linecount [flags]
 Flags:
 -f, --file the input file
 ```
-
-# TODO
-
-- [ ] Publish github release with CircleCI
